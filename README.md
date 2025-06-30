@@ -16,24 +16,24 @@ O curso de **Análise e Desenvolvimento de Sistemas (ADS)** foca em projetar, de
 
 Algumas das tecnologias e linguagens que estou utilizando neste repositório incluem:
 
-* **Linguagens:** Python, Java, JavaScript, C#, SQL
-* **Bancos de Dados:** MySQL, PostgreSQL, MongoDB
-* **Desenvolvimento Web:** HTML5, CSS3, React.js, Node.js
+* **Linguagens:** Python, C++
+* **Bancos de Dados:** MySQL
+* **Desenvolvimento Web:** HTML5, CSS3, JavaScript
 * **Controle de Versão:** Git, GitHub
-* **Conceitos:** POO, Algoritmos, APIs RESTful, Metodologias Ágeis.
+* **Conceitos:** POO, Algoritmos
 
 ---
 
 ## ✨ Como Navegar
 
-Sinta-se à vontade para explorar os códigos! Para ter uma cópia local, use `git clone https://github.com/[SeuUsuario]/[NomeDoSeuRepositorio].git`.
+Sinta-se à vontade para explorar os códigos! Para ter uma cópia local, use `git clone https://github.com/soksxz/Senai.git`.
 
 ---
 
 ## 🔗 Conecte-se Comigo
 
-* **LinkedIn:** [Seu link do LinkedIn aqui - Ex: `https://www.linkedin.com/in/seu-perfil/`]
+* **LinkedIn:** [`https://www.linkedin.com/`]
 
 ---
 
-<p align="center">Feito com ❤️ por <strong>[Seu Nome ou Usuário do GitHub]</strong>.</p>
+<p align="center">Feito com ❤️ por <strong>soksxz</strong>.</p>
