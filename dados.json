@@ -1,0 +1,322 @@
+{
+    "pecas": [
+        {
+            "id": "1",
+            "nome": "oi",
+            "preco": 12.0,
+            "quantidade": 112
+        },
+        {
+            "id": "12",
+            "nome": "Pneu",
+            "preco": 50.0,
+            "quantidade": 94
+        },
+        {
+            "id": "12",
+            "nome": "12",
+            "preco": 12.0,
+            "quantidade": 12
+        }
+    ],
+    "servicos": [],
+    "clientes": [],
+    "veiculos": [],
+    "vendas": [
+        {
+            "data": "03/07/2025 16:12",
+            "itens": [
+                {
+                    "tipo": "pe\u00e7a",
+                    "item": {
+                        "id": "12",
+                        "nome": "Pneu",
+                        "preco": 50.0,
+                        "quantidade": 118
+                    },
+                    "quantidade": 2
+                }
+            ],
+            "total": 95.0,
+            "vendedor": "ademiro",
+            "pagamento": 1,
+            "pontos": 0
+        },
+        {
+            "data": "03/07/2025 16:27",
+            "itens": [
+                {
+                    "tipo": "pe\u00e7a",
+                    "item": {
+                        "id": "1",
+                        "nome": "oi",
+                        "preco": 12.0,
+                        "quantidade": 119
+                    },
+                    "quantidade": 1
+                }
+            ],
+            "total": 11.4,
+            "vendedor": "ademiro",
+            "pagamento": 1,
+            "pontos": 0
+        },
+        {
+            "data": "03/07/2025 16:27",
+            "itens": [
+                {
+                    "tipo": "pe\u00e7a",
+                    "item": {
+                        "id": "1",
+                        "nome": "oi",
+                        "preco": 12.0,
+                        "quantidade": 118
+                    },
+                    "quantidade": 1
+                },
+                {
+                    "tipo": "pe\u00e7a",
+                    "item": {
+                        "id": "12",
+                        "nome": "Pneu",
+                        "preco": 50.0,
+                        "quantidade": 116
+                    },
+                    "quantidade": 2
+                }
+            ],
+            "total": 106.4,
+            "vendedor": "ademiro",
+            "pagamento": 1,
+            "pontos": 18
+        },
+        {
+            "data": "03/07/2025 16:29",
+            "itens": [
+                {
+                    "tipo": "pe\u00e7a",
+                    "item": {
+                        "id": "12",
+                        "nome": "Pneu",
+                        "preco": 50.0,
+                        "quantidade": 114
+                    },
+                    "quantidade": 2
+                }
+            ],
+            "total": 100.0,
+            "vendedor": "ademiro",
+            "pagamento": 4,
+            "pontos": 27
+        },
+        {
+            "data": "03/07/2025 16:32",
+            "itens": [
+                {
+                    "tipo": "pe\u00e7a",
+                    "item": {
+                        "id": "12",
+                        "nome": "Pneu",
+                        "preco": 50.0,
+                        "quantidade": 112
+                    },
+                    "quantidade": 2
+                }
+            ],
+            "total": 100.0,
+            "vendedor": "ademiro",
+            "pagamento": 4,
+            "pontos": 36
+        },
+        {
+            "data": "03/07/2025 16:34",
+            "itens": [
+                {
+                    "tipo": "pe\u00e7a",
+                    "item": {
+                        "id": "12",
+                        "nome": "Pneu",
+                        "preco": 50.0,
+                        "quantidade": 110
+                    },
+                    "quantidade": 2
+                }
+            ],
+            "total": 100.0,
+            "vendedor": "ademiro",
+            "pagamento": 4,
+            "pontos": 45
+        },
+        {
+            "data": "03/07/2025 16:35",
+            "itens": [
+                {
+                    "tipo": "pe\u00e7a",
+                    "item": {
+                        "id": "12",
+                        "nome": "Pneu",
+                        "preco": 50.0,
+                        "quantidade": 108
+                    },
+                    "quantidade": 2
+                }
+            ],
+            "total": 100.0,
+            "vendedor": "ademiro",
+            "pagamento": 4,
+            "pontos": 54
+        },
+        {
+            "data": "03/07/2025 16:36",
+            "itens": [
+                {
+                    "tipo": "pe\u00e7a",
+                    "item": {
+                        "id": "1",
+                        "nome": "oi",
+                        "preco": 12.0,
+                        "quantidade": 114
+                    },
+                    "quantidade": 4
+                }
+            ],
+            "total": 48.0,
+            "vendedor": "ademiro",
+            "pagamento": 4,
+            "pontos": 0
+        },
+        {
+            "data": "03/07/2025 16:55",
+            "itens": [
+                {
+                    "tipo": "pe\u00e7a",
+                    "item": {
+                        "id": "12",
+                        "nome": "Pneu",
+                        "preco": 50.0,
+                        "quantidade": 103
+                    },
+                    "quantidade": 5
+                }
+            ],
+            "total": 237.5,
+            "vendedor": "ademiro",
+            "pagamento": 1,
+            "pontos": 72
+        },
+        {
+            "data": "03/07/2025 16:56",
+            "itens": [
+                {
+                    "tipo": "pe\u00e7a",
+                    "item": {
+                        "id": "12",
+                        "nome": "Pneu",
+                        "preco": 50.0,
+                        "quantidade": 101
+                    },
+                    "quantidade": 2
+                }
+            ],
+            "total": 95.0,
+            "vendedor": "ademiro",
+            "pagamento": 1,
+            "pontos": 81
+        },
+        {
+            "data": "03/07/2025 16:58",
+            "itens": [
+                {
+                    "tipo": "pe\u00e7a",
+                    "item": {
+                        "id": "12",
+                        "nome": "Pneu",
+                        "preco": 50.0,
+                        "quantidade": 99
+                    },
+                    "quantidade": 2
+                }
+            ],
+            "total": 95.0,
+            "vendedor": "ademiro",
+            "pagamento": 1,
+            "pontos": 90
+        },
+        {
+            "data": "03/07/2025 17:00",
+            "itens": [
+                {
+                    "tipo": "pe\u00e7a",
+                    "item": {
+                        "id": "1",
+                        "nome": "oi",
+                        "preco": 12.0,
+                        "quantidade": 112
+                    },
+                    "quantidade": 2
+                }
+            ],
+            "total": 22.8,
+            "vendedor": "ademiro",
+            "pagamento": 1,
+            "pontos": 0
+        },
+        {
+            "data": "03/07/2025 17:01",
+            "itens": [
+                {
+                    "tipo": "pe\u00e7a",
+                    "item": {
+                        "id": "12",
+                        "nome": "Pneu",
+                        "preco": 50.0,
+                        "quantidade": 97
+                    },
+                    "quantidade": 2
+                }
+            ],
+            "total": 95.0,
+            "vendedor": "ademiro",
+            "pagamento": 1,
+            "pontos": 108
+        },
+        {
+            "data": "03/07/2025 17:08",
+            "itens": [
+                {
+                    "tipo": "pe\u00e7a",
+                    "item": {
+                        "id": "12",
+                        "nome": "Pneu",
+                        "preco": 50.0,
+                        "quantidade": 95
+                    },
+                    "quantidade": 2
+                }
+            ],
+            "total": 95.0,
+            "vendedor": "ademiro",
+            "pagamento": 1,
+            "pontos": 117
+        },
+        {
+            "data": "04/07/2025 13:33",
+            "itens": [
+                {
+                    "tipo": "pe\u00e7a",
+                    "item": {
+                        "id": "12",
+                        "nome": "12",
+                        "preco": 12.0,
+                        "quantidade": 12
+                    },
+                    "quantidade": 1
+                }
+            ],
+            "total": 11.4,
+            "vendedor": "ademiro",
+            "pagamento": 1,
+            "pontos": 0
+        }
+    ]
+}

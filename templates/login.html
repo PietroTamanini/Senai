@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <title>Login - Oficina</title>
+    <!-- CSS Minimalista Verde e Preto -->
+    <style>
+        /* (insira aqui o CSS do bloco acima, para o login.html) */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+        body {
+            background-color: #121212;
+            color: #E0E0E0;
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        a {
+            color: #00FF7F;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: #32CD32;
+        }
+
+        h1, h2, h3 {
+            color: #00FF7F;
+            margin-bottom: 1rem;
+        }
+
+        input, select, button {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            padding: 0.5rem;
+            margin-top: 0.3rem;
+            border: 2px solid #00FF7F;
+            border-radius: 4px;
+            background-color: #121212;
+            color: #E0E0E0;
+            transition: all 0.3s ease;
+            outline: none;
+            display: block;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        input:focus, select:focus {
+            border-color: #32CD32;
+            box-shadow: 0 0 5px #32CD32;
+        }
+
+        button {
+            background-color: #00FF7F;
+            border: none;
+            cursor: pointer;
+            font-weight: 700;
+            width: auto;
+            max-width: none;
+            margin-top: 1rem;
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+        button:hover {
+            background-color: #32CD32;
+            color: #121212;
+        }
+
+        form {
+            margin-bottom: 2rem;
+            width: 100%;
+            max-width: 320px;
+        }
+
+        .error {
+            color: #FF6347;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Login</h1>
+    {% if erro %}
+        <p class="error">{{ erro }}</p>
+    {% endif %}
+    <form method="POST">
+        <label>Usuário:
+            <input type="text" name="usuario" required autofocus />
+        </label>
+
+        <label>Senha:
+            <input type="password" name="senha" required />
+        </label>
+
+        <button type="submit">Entrar</button>
+    </form>
+</body>
+</html>

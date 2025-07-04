@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <title>Vendas - Oficina</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+        body {
+            background-color: #121212;
+            color: #E0E0E0;
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        a {
+            color: #00FF7F;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: #32CD32;
+        }
+
+        h1, h2, h3 {
+            color: #00FF7F;
+            margin-bottom: 1rem;
+        }
+
+        table {
+            width: 100%;
+            max-width: 800px;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+            box-shadow: 0 0 10px rgba(0,255,127,0.2);
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #1B1B1B;
+        }
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #2E2E2E;
+        }
+        th {
+            background-color: #00FF7F;
+            color: #121212;
+            font-weight: 700;
+            user-select: none;
+        }
+        tr:hover {
+            background-color: #003300;
+            cursor: pointer;
+        }
+
+        form {
+            max-width: 350px;
+            margin-bottom: 2rem;
+        }
+
+        input, select, button {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            padding: 0.5rem;
+            margin-top: 0.3rem;
+            border: 2px solid #00FF7F;
+            border-radius: 4px;
+            background-color: #121212;
+            color: #E0E0E0;
+            transition: all 0.3s ease;
+            outline: none;
+            display: block;
+            width: 100%;
+        }
+
+        input:focus, select:focus {
+            border-color: #32CD32;
+            box-shadow: 0 0 5px #32CD32;
+        }
+
+        button {
+            background-color: #00FF7F;
+            border: none;
+            cursor: pointer;
+            font-weight: 700;
+            width: auto;
+            max-width: none;
+            margin-top: 1rem;
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+        button:hover {
+            background-color: #32CD32;
+            color: #121212;
+        }
+
+    </style>
+</head>
+<body>
+    <a href="{{ url_for('dashboard') }}">Voltar ao Dashboard</a>
+
+    <h1>Pedido Atual</h1>
+
+    {% if pedido %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Tipo</th>
+                    <th>Nome</th>
+                    <th

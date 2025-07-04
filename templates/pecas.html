@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <title>Peças - Oficina</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+        body {
+            background-color: #121212;
+            color: #E0E0E0;
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        a {
+            color: #00FF7F;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: #32CD32;
+        }
+
+        h1, h2, h3 {
+            color: #00FF7F;
+            margin-bottom: 1rem;
+        }
+
+        table {
+            width: 100%;
+            max-width: 800px;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+            box-shadow: 0 0 10px rgba(0,255,127,0.2);
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #1B1B1B;
+        }
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #2E2E2E;
+        }
+        th {
+            background-color: #00FF7F;
+            color: #121212;
+            font-weight: 700;
+            user-select: none;
+        }
+        tr:hover {
+            background-color: #003300;
+            cursor: pointer;
+        }
+
+        nav {
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('dashboard') }}">Voltar ao Dashboard</a> |
+        <a href="{{ url_for('pecas_adicionar') }}">Adicionar Peça</a>
+    </nav>
+
+    <h1>Peças cadastradas</h1>
+
+    {% if pecas %}
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Preço</th>
+                    <th>Quantidade</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in pecas %}
+                    <tr>
+                        <td>{{ p.id }}</td>
+                        <td>{{ p.nome }}</td>
+                        <td>R$ {{ "%.2f"|format(p.preco) }}</td>
+                        <td>{{ p.quantidade }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Nenhuma peça cadastrada.</p>
+    {% endif %}
+</body>
+</html>

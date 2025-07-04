@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+body {
+    background-color: #121212;
+    color: #E0E0E0;
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 2rem;
+    min-height: 100vh;
+}
+
+a {
+    color: #00FF7F;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+a:hover {
+    color: #32CD32;
+}
+
+h1, h2, h3 {
+    color: #00FF7F;
+    margin-bottom: 1rem;
+}
+
+input, select, button {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    padding: 0.5rem;
+    margin-top: 0.3rem;
+    border: 2px solid #00FF7F;
+    border-radius: 4px;
+    background-color: #121212;
+    color: #E0E0E0;
+    transition: all 0.3s ease;
+    outline: none;
+    display: block;
+    width: 100%;
+    max-width: 300px;
+}
+
+input:focus, select:focus {
+    border-color: #32CD32;
+    box-shadow: 0 0 5px #32CD32;
+}
+
+button {
+    background-color: #00FF7F;
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    width: auto;
+    max-width: none;
+    margin-top: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+button:hover {
+    background-color: #32CD32;
+    color: #121212;
+}
+
+form {
+    margin-bottom: 2rem;
+}
+
+table {
+    width: 100%;
+    max-width: 800px;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+    box-shadow: 0 0 10px rgba(0,255,127,0.2);
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #1B1B1B;
+}
+th, td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #2E2E2E;
+}
+th {
+    background-color: #00FF7F;
+    color: #121212;
+    font-weight: 700;
+    user-select: none;
+}
+tr:hover {
+    background-color: #003300;
+    cursor: pointer;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+nav ul li {
+    user-select: none;
+}
+nav ul li a {
+    padding: 0.5rem 1rem;
+    border: 2px solid #00FF7F;
+    border-radius: 6px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: inline-block;
+}
+nav ul li a:hover {
+    background-color: #00FF7F;
+    color: #121212;
+}
+
+p, label {
+    max-width: 800px;
+}
+
+.error {
+    color: #FF6347;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 1rem;
+    }
+    table, form, nav ul {
+        max-width: 100%;
+    }
+    nav ul {
+        flex-direction: column;
+    }
+    input, select, button {
+        max-width: 100%;
+    }
+}
