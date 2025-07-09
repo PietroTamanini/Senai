@@ -1,0 +1,112 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background: linear-gradient(to bottom right, #e7f9e7, #ffffff);
+    color: #1d3b1d;
+  }
+  
+  header {
+    background-color: #2e8b57;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+  }
+  
+  nav {
+    margin-top: 1rem;
+  }
+  
+  nav a {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+  }
+  
+  nav a:hover {
+    background-color: #1f6e45;
+  }
+  
+  main {
+    padding: 2rem;
+    background-color: #ffffffcc;
+    margin: 2rem auto;
+    max-width: 900px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 128, 0, 0.3);
+    animation: fadeIn 1s ease-in-out;
+  }
+  
+  .hero {
+    text-align: center;
+    padding: 2rem 0;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  form label {
+    font-weight: bold;
+    color: #2e8b57;
+  }
+  
+  form input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+  
+  form button {
+    background-color: #2e8b57;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+  
+  form button:hover {
+    background-color: #246d45;
+    transform: scale(1.05);
+  }
+  
+  ul li {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f0fdf0;
+    border-left: 5px solid #2e8b57;
+    border-radius: 5px;
+    transition: background 0.3s;
+  }
+  
+  ul li:hover {
+    background-color: #e0fbe0;
+  }
+  
+  footer {
+    background-color: #2e8b57;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
