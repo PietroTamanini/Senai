@@ -1,37 +1,60 @@
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cadastro - On Food</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - On Food</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>On Food</h1>
-    <nav>
-      <a href="index.html">Início</a>
-      <a href="cadastro.html">Cadastro</a>
-      <a href="autocuidado.html">Auto Cuidado</a>
-      <a href="alimentacao.html">Alimentação</a>
-    </nav>
-  </header>
-  <main>
-    <h2>Cadastro</h2>
-    <form action="cadastro.php" method="POST">
-      <label for="nome">Nome:</label>
-      <input type="text" id="nome" name="nome" required>
+    <header>
+        <h1>On Food</h1>
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="cadastro.html">Cadastro</a>
+            <a href="autocuidado.html">Auto Cuidado</a>
+            <a href="alimentacao.html">Alimentação</a>
+        </nav>
+    </header>
+    <main>
+        <h2>Cadastro</h2>
+        <form action="cadastro.php" method="POST">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required autocomplete="name">
 
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required autocomplete="email">
 
-      <label for="senha">Senha:</label>
-      <input type="password" id="senha" name="senha" required>
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" name="senha" required minlength="6" autocomplete="new-password">
 
-      <button type="submit">Cadastrar</button>
-    </form>
-  </main>
-  <footer>
-    <p>&copy; 2025 On Food - Todos os direitos reservados</p>
-  </footer>
+            <label for="confirma_senha">Confirmar Senha:</label>
+            <input type="password" id="confirma_senha" name="confirma_senha" required minlength="6" autocomplete="new-password">
+
+            <button type="submit">Cadastrar</button>
+        </form>
+    </main>
+    <footer>
+        <p>&copy; 2025 On Food - Todos os direitos reservados</p>
+    </footer>
+
+    <script>
+        // Adicionar script para validação de senha no lado do cliente
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('form');
+            const senhaInput = document.getElementById('senha');
+            const confirmaSenhaInput = document.getElementById('confirma_senha');
+
+            form.addEventListener('submit', function(event) {
+                if (senhaInput.value !== confirmaSenhaInput.value) {
+                    alert('As senhas não coincidem. Por favor, verifique.');
+                    confirmaSenhaInput.setCustomValidity('As senhas não coincidem.'); // Mensagem de erro para o navegador
+                    event.preventDefault(); // Impede o envio do formulário
+                } else {
+                    confirmaSenhaInput.setCustomValidity(''); // Reseta a mensagem de erro se as senhas coincidirem
+                }
+            });
+        });
+    </script>
 </body>
 </html>
