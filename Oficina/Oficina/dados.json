@@ -1,0 +1,64 @@
+{
+    "pecas": [
+        {
+            "id": 1,
+            "nome": "Pneu",
+            "preco": 1000.0,
+            "quantidade": 41,
+            "pontuacao": 18
+        },
+        {
+            "id": "2",
+            "nome": "2",
+            "preco": 2.0,
+            "quantidade": 2,
+            "pontuacao": 2
+        }
+    ],
+    "servicos": [],
+    "clientes": [],
+    "veiculos": [],
+    "vendas": [
+        {
+            "data": "06/08/2025 16:17",
+            "itens": [
+                {
+                    "tipo": "pe\u00e7a",
+                    "item": {
+                        "id": 1,
+                        "nome": "Pneu",
+                        "preco": 1000.0,
+                        "quantidade": 42,
+                        "pontuacao": 18
+                    },
+                    "quantidade": 200
+                }
+            ],
+            "total": 190000.0,
+            "vendedor": "ademiro",
+            "pagamento": 1,
+            "pontos_ganhos": 9
+        },
+        {
+            "data": "07/08/2025 14:01:17",
+            "vendedor": "ademiro",
+            "itens": [
+                {
+                    "tipo": "peca",
+                    "item": {
+                        "id": 1,
+                        "nome": "Pneu",
+                        "preco": 1000.0,
+                        "quantidade": 41,
+                        "pontuacao": 18
+                    },
+                    "quantidade": 1
+                }
+            ],
+            "total": 1000.0,
+            "pagamento": 2,
+            "pontos_ganhos": 18
+        }
+    ],
+    "somaPontos": 27
+}

@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Troca de Pontos{% endblock %}
+
+{% block content %}
+<h1 class="mb-4 text-info"><i class="fas fa-gift me-2"></i>Troca de Pontos por Peças</h1>
+
+<div class="alert alert-primary text-center fs-4" role="alert">
+    Você tem atualmente <strong class="text-success">{{ pontos_atuais }}</strong> pontos acumulados.
+</div>
+
+<div class="card mb-4 shadow-sm">
+    <div class="card-header bg-info text-white">
+        Peças Disponíveis para Troca
+    </div>
+    <div class="card-body">
+        {% if pecas %}
+        <div class="table-responsive">
+            <table class="table table-striped table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Custo de Pontos</th>
+                        <th>Estoque</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for peca in pecas %}
+                    <tr>
+                        <td>{{ peca.id }}</td>
+                        <td>{{ peca.nome }}</td>
+                        <td><span class="badge bg-warning text-dark p-2">{{ peca.pontuacao }} pontos</span></td>
+                        <td>
+                            {% if peca.quantidade < 3 %}
+                                <span class="badge bg-danger p-2">BAIXO: {{ peca.quantidade }}</span>
+                            {% else %}
+                                <span class="badge bg-success p-2">{{ peca.quantidade }}</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <form id="trocaForm-{{ peca.id }}" method="POST" action="{{ url_for('troca_pontos') }}" class="d-inline">
+                                <input type="hidden" name="peca_id" value="{{ peca.id }}">
+                                <button type="button" class="btn btn-success btn-sm"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#confirmModal"
+                                        data-bs-form-id="trocaForm-{{ peca.id }}"
+                                        data-bs-message="Deseja realmente trocar {{ peca.pontuacao }} pontos pela peça {{ peca.nome }}?"
+                                        {% if pontos_atuais < peca.pontuacao or peca.quantidade <= 0 %} disabled {% endif %}>
+                                    <i class="fas fa-exchange-alt me-1"></i>Trocar
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="alert alert-warning text-center" role="alert">
+            <i class="fas fa-exclamation-triangle me-2"></i>Nenhuma peça disponível para troca no momento.
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

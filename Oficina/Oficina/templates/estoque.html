@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="jumbotron bg-light p-5 rounded-lg m-3 text-center">
+    <h1 class="display-4">Bem-vindo(a) ao Sistema de Gestão!</h1>
+    <p class="lead">Olá, <strong>{{ usuario_logado.usuario }}</strong>! Você está logado como <strong>{{ usuario_logado.nivel.capitalize() }}</strong>.</p>
+    <hr class="my-4">
+    <p>Utilize o menu de navegação acima para acessar as funcionalidades do sistema.</p>
+    {% if usuario_logado.nivel in ["admin", "atendente"] %}
+    <a class="btn btn-primary btn-lg" href="{{ url_for('vendas') }}" role="button">
+        <i class="fas fa-shopping-cart me-2"></i>Ir para Vendas
+    </a>
+    {% endif %}
+</div>
+
+<div class="row mt-4 text-center">
+    {% if usuario_logado.nivel in ["admin", "cadastrador_pecas", "rh"] %}
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-plus-circle text-primary me-2"></i>Cadastros</h5>
+                <p class="card-text">Gerencie peças, serviços, clientes e veículos.</p>
+                <a href="{{ url_for('cadastros') }}" class="btn btn-outline-primary">Acessar Cadastros</a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% if usuario_logado.nivel in ["admin", "estoquista"] %}
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-warehouse text-warning me-2"></i>Estoque</h5>
+                <p class="card-text">Visualize e gerencie o estoque de peças.</p>
+                <a href="{{ url_for('estoque') }}" class="btn btn-outline-warning">Ver Estoque</a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% if usuario_logado.nivel in ["admin", "rh"] %}
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-chart-bar text-info me-2"></i>Relatórios</h5>
+                <p class="card-text">Acesse o histórico de vendas e dados financeiros.</p>
+                <a href="{{ url_for('relatorios') }}" class="btn btn-outline-info">Ver Relatórios</a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
