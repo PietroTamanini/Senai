@@ -358,7 +358,7 @@ def troca_pontos():
 
 if __name__ == '__main__':
     # Bloco que só é executado se o script for executado diretamente (não importado como módulo).
-    app.run(host='0.0.0.0', port=8000)
+    app.run(host='0.0.0.0', port=6742)
     # Inicia o servidor de desenvolvimento do Flask.
     # 'debug=True' ativa o modo de depuração, que fornece mensagens de erro detalhadas
     # e recarrega o servidor automaticamente a cada alteração no código.
