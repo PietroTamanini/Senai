@@ -24,8 +24,13 @@ DATA_FILE = "dados.json"
 # ======================= FUNÇÕES DE SUPORTE =======================
 def carregar_dados():
     global usuarios, pecas, servicos, clientes, veiculos, historico_vendas
-    if os.path.exists(DATA_FILE):
-        with open(DATA_FILE, 'r', encoding='utf-8') as f:
+    
+    # Use um caminho absoluto para o arquivo dados.json
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    caminho_dados = os.path.join(base_dir, DATA_FILE)
+    
+    if os.path.exists(caminho_dados):
+        with open(caminho_dados, 'r', encoding='utf-8') as f:
             dados = json.load(f)
             usuarios = dados.get('usuarios', [])
             pecas = dados.get('pecas', [])
@@ -33,8 +38,20 @@ def carregar_dados():
             clientes = dados.get('clientes', [])
             veiculos = dados.get('veiculos', [])
             historico_vendas = dados.get('historico_vendas', [])
+    else:
+        # Se o arquivo não existir, inicializa com dados vazios
+        usuarios = []
+        pecas = []
+        servicos = []
+        clientes = []
+        veiculos = []
+        historico_vendas = []
 
 def salvar_dados():
+    # Use um caminho absoluto para salvar o arquivo
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    caminho_dados = os.path.join(base_dir, DATA_FILE)
+    
     dados = {
         'usuarios': usuarios,
         'pecas': pecas,
@@ -43,7 +60,7 @@ def salvar_dados():
         'veiculos': veiculos,
         'historico_vendas': historico_vendas
     }
-    with open(DATA_FILE, 'w', encoding='utf-8') as f:
+    with open(caminho_dados, 'w', encoding='utf-8') as f:
         json.dump(dados, f, indent=4, ensure_ascii=False)
 
 def get_peca_por_id(peca_id):
@@ -305,7 +322,8 @@ def inject_globals():
         clientes=clientes,
         veiculos=veiculos,
         pecas=pecas,
-        servicos=servicos
+        servicos=servicos,
+        now=datetime.datetime.now
     )
 
 @app.route('/')
