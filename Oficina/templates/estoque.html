@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block title %}Estoque{% endblock %}
+
+{% block content %}
+<h1 class="mb-4 text-warning"><i class="fas fa-warehouse me-2"></i>Gerenciar Estoque de Peças</h1>
+
+{% if pecas %}
+<div class="table-responsive">
+    <table class="table table-striped table-hover align-middle">
+        <thead class="table-warning">
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Preço</th>
+                <th>Estoque</th>
+                <th>Pontuação por Peça</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for peca in pecas %}
+            <tr>
+                <td>{{ peca.id }}</td>
+                <td>{{ peca.nome }}</td>
+                <td>{{ formatar_moeda(peca.preco) }}</td>
+                <td>
+                    {% if peca.quantidade < 3 %}
+                        <span class="badge bg-danger p-2">BAIXO: {{ peca.quantidade }}</span>
+                    {% else %}
+                        <span class="badge bg-success p-2">{{ peca.quantidade }}</span>
+                    {% endif %}
+                </td>
+                <td><span class="badge bg-info p-2">{{ peca.pontuacao | default(0) }} pontos</span></td>
+                <td>
+                    <button type="button" class="btn btn-sm btn-primary"
+                            data-bs-toggle="modal"
+                            data-bs-target="#aumentarEstoqueModal"
+                            data-bs-id="{{ peca.id }}"
+                            data-bs-nome="{{ peca.nome }}">
+                        <i class="fas fa-plus me-1"></i>Adicionar
+                    </button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="alert alert-info text-center" role="alert">
+    <i class="fas fa-info-circle me-2"></i>Nenhuma peça cadastrada no estoque.
+</div>
+{% endif %}
+
+<!-- Modal Simplificado -->
+<div class="modal fade" id="aumentarEstoqueModal" tabindex="-1" 
+     aria-labelledby="aumentarEstoqueModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="aumentarEstoqueModalLabel">Adicionar ao Estoque</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            
+            <form id="aumentarEstoqueForm" method="POST" action="{{ url_for('aumentar_estoque') }}">
+                <div class="modal-body">
+                    <input type="hidden" name="peca_id" id="modalPecaId">
+                    <input type="hidden" name="peca_nome" id="modalPecaNome">
+                    
+                    <div class="mb-3">
+                        <label for="quantidade" class="form-label">Quantidade a Adicionar</label>
+                        <input type="number" class="form-control" id="quantidade" 
+                               name="quantidade" min="1" required>
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const estoqueModal = document.getElementById('aumentarEstoqueModal');
+    
+    if (estoqueModal) {
+        estoqueModal.addEventListener('show.bs.modal', function(event) {
+            const button = event.relatedTarget;
+            const pecaId = button.getAttribute('data-bs-id');
+            const pecaNome = button.getAttribute('data-bs-nome');
+            
+            document.getElementById('modalPecaId').value = pecaId;
+            document.getElementById('modalPecaNome').value = pecaNome;
+            
+            // Foca no campo de quantidade quando o modal abre
+            setTimeout(() => {
+                document.getElementById('quantidade').focus();
+            }, 100);
+        });
+    }
+});
+</script>
+{% endblock %}

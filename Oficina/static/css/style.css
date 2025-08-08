@@ -1,0 +1,86 @@
+/* Regras para o rodapé fixo (Sticky Footer) */
+html {
+    position: relative; /* Define a posição relativa para que o footer possa ser posicionado em relação a ele. */
+    min-height: 100%; /* Garante que o html ocupe no mínimo 100% da altura da viewport. */
+}
+
+body {
+    /* Margem inferior pelo tamanho do rodapé */
+    margin-bottom: 60px; /* Adiciona uma margem inferior ao corpo para evitar que o conteúdo seja coberto pelo footer fixo. Deve ser igual à altura do rodapé. */
+}
+
+main {
+    padding-top: 4rem; /* Adiciona um padding superior ao conteúdo principal para que ele não fique sob a navbar fixa. */
+}
+
+.footer {
+    position: fixed; /* Garante que o footer fique fixo na parte inferior da viewport. */
+    bottom: 0; /* Posiciona o footer na parte inferior. */
+    left: 0; /* Alinha o footer à esquerda. */
+    width: 100%; /* Ocupa toda a largura da tela. */
+    height: 60px; /* Define a altura do rodapé. */
+    line-height: 60px; /* Centraliza verticalmente o texto dentro do footer, igualando à altura. */
+    background-color: #343a40; /* Define a cor de fundo do rodapé (cor escura, similar ao bg-dark do Bootstrap). */
+    color: #ffffff; /* Define a cor do texto do rodapé como branco. */
+    text-align: center; /* Centraliza o texto horizontalmente. */
+    z-index: 10; /* Garante que o footer fique acima de outros elementos na página. */
+}
+
+
+/* Outros estilos que já existiam */
+.user-info {
+    font-size: 0.9rem; /* Define o tamanho da fonte para informações do usuário. */
+}
+
+.total-display {
+    font-size: 1.5rem; /* Define um tamanho de fonte maior para a exibição de totais. */
+    font-weight: bold; /* Deixa o texto em negrito. */
+}
+
+.item-list-scroll {
+    max-height: 300px; /* Define uma altura máxima para listas de itens. */
+    overflow-y: auto; /* Adiciona uma barra de rolagem vertical se o conteúdo exceder a altura máxima. */
+}
+
+.badge-custom {
+    color: white; /* Cor do texto do badge. */
+    padding: .4em .6em; /* Espaçamento interno do badge. */
+    border-radius: .25rem; /* Arredondamento das bordas do badge. */
+    font-size: 85%; /* Tamanho da fonte do badge. */
+}
+/* Accordion customizado */
+.accordion .card-header {
+    background-color: #f8f9fa; /* Cor de fundo do cabeçalho do card dentro do accordion. */
+    border-bottom: 1px solid rgba(0,0,0,.125); /* Borda inferior do cabeçalho. */
+    padding: 0; /* Remove o padding padrão do cabeçalho. */
+}
+
+.accordion .btn-link {
+    color: #007bff; /* Cor do texto do botão de link (azul padrão do Bootstrap). */
+    font-weight: bold; /* Texto em negrito. */
+    text-decoration: none; /* Remove o sublinhado padrão dos links. */
+    padding: 0.75rem 1.25rem; /* Espaçamento interno do botão. */
+}
+
+.accordion .btn-link:hover {
+    color: #0056b3; /* Cor do texto do botão ao passar o mouse. */
+    text-decoration: none; /* Garante que o sublinhado permaneça removido ao passar o mouse. */
+}
+
+.accordion .btn-link[aria-expanded="true"] {
+    color: #0056b3; /* Cor do texto do botão quando o painel do accordion está expandido. */
+}
+
+/* Responsividade */
+@media (max-width: 768px) { /* Aplica estilos quando a largura da tela é no máximo 768px (telas menores, como tablets e celulares). */
+    .jumbotron {
+        padding: 2rem; /* Reduz o padding do jumbotron para telas menores. */
+    }
+    .navbar-nav .nav-item {
+        text-align: center; /* Centraliza os itens da navegação em telas menores. */
+    }
+    .navbar-nav .btn {
+        width: 80%; /* Define uma largura para os botões na navbar em telas menores. */
+        margin: 0.5rem auto; /* Centraliza os botões horizontalmente e adiciona margem vertical. */
+    }
+}

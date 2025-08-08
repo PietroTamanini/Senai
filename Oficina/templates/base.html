@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="h-100"> <!-- Define o idioma da página como português do Brasil e a altura do HTML para 100%. -->
+<head>
+    <meta charset="UTF-8"> <!-- Define a codificação de caracteres para UTF-8. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Configura a viewport para responsividade em dispositivos móveis. -->
+    <title>Sistema de Gestão - {% block title %}{% endblock %}</title> <!-- Título da página, com um bloco para ser preenchido por templates filhos. -->
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- Link para o CSS do Bootstrap 5.3.2. -->
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Link para o CSS do Font Awesome para ícones. -->
+    <!-- CSS Personalizado -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> <!-- Link para o CSS personalizado do projeto. -->
+</head>
+<body class="d-flex flex-column h-100"> <!-- Define o corpo como um flex container em coluna, ocupando 100% da altura. -->
+    <!-- Navbar -->
+    <header> <!-- Cabeçalho da página. -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"> <!-- Barra de navegação Bootstrap: expande em telas grandes, tema escuro, fixa no topo. -->
+            <div class="container-fluid"> <!-- Container fluido para a navbar, ocupando toda a largura. -->
+                <a class="navbar-brand" href="{{ url_for('dashboard') }}"> <!-- Link da marca/logo da navbar para o dashboard. -->
+                    <i class="fas fa-cogs me-2"></i>Sistema de Gestão <!-- Ícone de engrenagens e texto da marca. -->
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <!-- Botão para alternar a navbar em telas pequenas. -->
+                    <span class="navbar-toggler-icon"></span> <!-- Ícone do toggler (hambúrguer). -->
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav"> <!-- Conteúdo da navbar que colapsa. -->
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0"> <!-- Lista de links de navegação principal, alinhada à esquerda. -->
+                        <li class="nav-item"> <!-- Item de navegação. -->
+                            <a class="nav-link {% if request.endpoint == 'dashboard' %}active{% endif %}" href="{{ url_for('dashboard') }}"> <!-- Link para o Dashboard, ativo se for a página atual. -->
+                                <i class="fas fa-home me-1"></i>Dashboard <!-- Ícone e texto do link. -->
+                            </a>
+                        </li>
+                        {% if usuario_logado %} <!-- Verifica se há um usuário logado. -->
+                        {% if usuario_logado.nivel in ["admin", "atendente"] %} <!-- Verifica o nível de acesso para "Vendas". -->
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.endpoint == 'vendas' %}active{% endif %}" href="{{ url_for('vendas') }}">
+                                <i class="fas fa-shopping-cart me-1"></i>Vendas
+                            </a>
+                        </li>
+                        {% endif %}
+                        {% if usuario_logado.nivel in ["admin", "estoquista", "cadastrador_pecas"] %} <!-- Verifica o nível de acesso para "Estoque". -->
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.endpoint == 'estoque' %}active{% endif %}" href="{{ url_for('estoque') }}">
+                                <i class="fas fa-warehouse me-1"></i>Estoque
+                            </a>
+                        </li>
+                        {% endif %}
+                        {% if usuario_logado.nivel in ["admin", "cadastrador_pecas", "rh"] %} <!-- Verifica o nível de acesso para "Cadastros". -->
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.endpoint == 'cadastros' %}active{% endif %}" href="{{ url_for('cadastros') }}">
+                                <i class="fas fa-plus-circle me-1"></i>Cadastros
+                            </a>
+                        </li>
+                        {% endif %}
+                        {% if usuario_logado.nivel in ["admin", "rh"] %} <!-- Verifica o nível de acesso para "Relatórios". -->
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.endpoint == 'relatorios' %}active{% endif %}" href="{{ url_for('relatorios') }}">
+                                <i class="fas fa-chart-bar me-1"></i>Relatórios
+                            </a>
+                        </li>
+                        {% endif %}
+                        {% if usuario_logado.nivel in ["admin", "atendente"] %} <!-- Verifica o nível de acesso para "Troca de Pontos". -->
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.endpoint == 'troca_pontos' %}active{% endif %}" href="{{ url_for('troca_pontos') }}">
+                                <i class="fas fa-gift me-1"></i>Troca de Pontos
+                            </a>
+                        </li>
+                        {% endif %}
+                        {% endif %}
+                    </ul>
+                    <ul class="navbar-nav ms-auto"> <!-- Lista de links de navegação secundária, alinhada à direita. -->
+                        {% if usuario_logado %} <!-- Verifica se há um usuário logado. -->
+                        <li class="nav-item dropdown"> <!-- Item de navegação dropdown para o usuário logado. -->
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> <!-- Link do dropdown com nome do usuário. -->
+                                <i class="fas fa-user-circle me-1"></i>{{ usuario_logado.usuario }}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown"> <!-- Menu dropdown. -->
+                                <li><a class="dropdown-item" href="#">Nível: {{ usuario_logado.nivel.capitalize() }}</a></li> <!-- Exibe o nível do usuário. -->
+                                <li><a class="dropdown-item" href="#">Pontos: {{ somaPontos }}</a></li> <!-- Exibe a soma de pontos do usuário. -->
+                                <li><hr class="dropdown-divider"></li> <!-- Divisor no menu. -->
+                                <li><a class="dropdown-item text-danger" href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt me-1"></i>Sair</a></li> <!-- Link para sair. -->
+                            </ul>
+                        </li>
+                        {% else %} <!-- Se não houver usuário logado. -->
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.endpoint == 'login' %}active{% endif %}" href="{{ url_for('login') }}"> <!-- Link para a página de login, ativo se for a página atual. -->
+                                <i class="fas fa-sign-in-alt me-1"></i>Login
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Conteúdo principal -->
+    <main class="flex-shrink-0 py-5 mt-5"> <!-- Conteúdo principal da página, que encolhe para permitir o footer fixo, com padding e margem superior. -->
+        <div class="container"> <!-- Container para o conteúdo principal. -->
+            {% with messages = get_flashed_messages(with_categories=true) %} <!-- Bloco para exibir mensagens flash (alertas). -->
+            {% if messages %} <!-- Verifica se há mensagens. -->
+                <div class="mt-4"> <!-- Margem superior para os alertas. -->
+                {% for category, message in messages %} <!-- Itera sobre as mensagens. -->
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert"> <!-- Alerta Bootstrap com categoria dinâmica e botão de fechar. -->
+                    {{ message }} <!-- Conteúdo da mensagem. -->
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> <!-- Botão para fechar o alerta. -->
+                </div>
+                {% endfor %}
+                </div>
+            {% endif %}
+            {% endwith %}
+            {% block content %}{% endblock %} <!-- Bloco para o conteúdo específico da página, a ser preenchido por templates filhos. -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer mt-auto py-3 bg-dark text-white-50"> <!-- Rodapé fixo na parte inferior. -->
+        <div class="container text-center"> <!-- Container para o conteúdo do rodapé, centralizado. -->
+            <span>Sistema de Gestão &copy; {{ now().year }}</span> <!-- Texto de copyright dinâmico. -->
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS e Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script> <!-- Link para o Popper.js (necessário para alguns componentes Bootstrap). -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script> <!-- Link para o JS do Bootstrap. -->
+
+    <!-- JS Personalizado -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script> <!-- Link para o script JS personalizado do projeto. -->
+</body>
+</html>

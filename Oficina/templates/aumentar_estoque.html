@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8"> <!-- Define a codificação de caracteres para UTF-8. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Configura a viewport para responsividade. -->
+    <title>Sistema de Gestão - {% block title %}{% endblock %}</title> <!-- Título da página, com um bloco para ser preenchido por templates filhos. -->
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"> <!-- Link para o CSS do Bootstrap 5.3.2. -->
+    <!-- Font Awesome para ícones (opcional, mas melhora a estética) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Link para o CSS do Font Awesome para ícones. -->
+    <!-- CSS Personalizado -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> <!-- Link para o CSS personalizado do projeto. -->
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"> <!-- Barra de navegação Bootstrap: expande em telas grandes, tema escuro, fixa no topo. -->
+        <div class="container-fluid"> <!-- Container fluido para a navbar, ocupando toda a largura. -->
+            <a class="navbar-brand" href="{{ url_for('dashboard') }}"> <!-- Link da marca/logo da navbar para o dashboard. -->
+                <i class="fas fa-cogs me-2"></i>Sistema de Gestão <!-- Ícone de engrenagens e texto da marca. -->
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <!-- Botão para alternar a navbar em telas pequenas. -->
+                <span class="navbar-toggler-icon"></span> <!-- Ícone do toggler (hambúrguer). -->
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav"> <!-- Conteúdo da navbar que colapsa. -->
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0"> <!-- Lista de links de navegação principal, alinhada à esquerda. -->
+                    {% if usuario_logado %} <!-- Verifica se há um usuário logado. -->
+                        {% if usuario_logado.nivel in ["admin", "cadastrador_pecas"] %} <!-- Verifica o nível de acesso para "Cadastros". -->
+                        <li class="nav-item"> <!-- Item de navegação. -->
+                            <a class="nav-link" href="{{ url_for('cadastros') }}"><i class="fas fa-plus-circle me-1"></i>Cadastros</a> <!-- Link para a página de cadastros. -->
+                        </li>
+                        {% endif %}
+                        {% if usuario_logado.nivel in ["admin", "atendente"] %} <!-- Verifica o nível de acesso para "Vendas". -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('vendas') }}"><i class="fas fa-shopping-cart me-1"></i>Vendas</a>
+                        </li>
+                        {% endif %}
+                        {% if usuario_logado.nivel in ["admin", "estoquista"] %} <!-- Verifica o nível de acesso para "Estoque". -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('estoque') }}"><i class="fas fa-warehouse me-1"></i>Estoque</a>
+                        </li>
+                        {% endif %}
+                        {% if usuario_logado.nivel in ["admin", "rh"] %} <!-- Verifica o nível de acesso para "Relatórios". -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('relatorios') }}"><i class="fas fa-chart-bar me-1"></i>Relatórios</a>
+                        </li>
+                        {% endif %}
+                    {% endif %}
+                </ul>
+                <ul class="navbar-nav ms-auto"> <!-- Lista de links de navegação secundária, alinhada à direita. -->
+                    {% if usuario_logado %} <!-- Verifica se há um usuário logado. -->
+                        <li class="nav-item dropdown"> <!-- Item de navegação dropdown para o usuário logado. -->
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> <!-- Link do dropdown com nome e nível do usuário. -->
+                                <i class="fas fa-user-circle me-1"></i>Olá, {{ usuario_logado.usuario }} ({{ usuario_logado.nivel.capitalize() }})
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown"> <!-- Menu dropdown. -->
+                                {% if usuario_logado.nivel in ["admin", "atendente"] %} <!-- Verifica o nível de acesso para "Trocar Pontos". -->
+                                <li><a class="dropdown-item" href="{{ url_for('troca_pontos') }}"><i class="fas fa-gift me-1"></i>Trocar Pontos</a></li> <!-- Link para troca de pontos. -->
+                                <li><hr class="dropdown-divider"></li> <!-- Divisor no menu. -->
+                                {% endif %}
+                                <li><a class="dropdown-item text-danger" href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt me-1"></i>Sair</a></li> <!-- Link para sair. -->
+                            </ul>
+                        </li>
+                    {% else %} <!-- Se não houver usuário logado. -->
+                        <li class="nav-item">
+                            <a class="btn btn-outline-light" href="{{ url_for('login') }}"><i class="fas fa-sign-in-alt me-1"></i>Login</a> <!-- Botão de login. -->
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5 pt-4"> <!-- Container principal para o conteúdo da página, com margem superior e padding. -->
+        {% with messages = get_flashed_messages(with_categories=true) %} <!-- Bloco para exibir mensagens flash (alertas). -->
+            {% if messages %} <!-- Verifica se há mensagens. -->
+                {% for category, message in messages %} <!-- Itera sobre as mensagens. -->
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert"> <!-- Alerta Bootstrap com categoria dinâmica e botão de fechar. -->
+                        {{ message }} <!-- Conteúdo da mensagem. -->
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> <!-- Botão para fechar o alerta. -->
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %} <!-- Bloco para o conteúdo específico da página, a ser preenchido por templates filhos. -->
+    </div>
+
+    <footer class="footer mt-auto py-3 bg-dark text-white-50"> <!-- Rodapé fixo na parte inferior. -->
+        <div class="container text-center"> <!-- Container para o conteúdo do rodapé, centralizado. -->
+            <span>&copy; {{ now().year }} Sistema de Gestão. Todos os direitos reservados.</span> <!-- Texto de copyright dinâmico. -->
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> <!-- Link para o bundle JS do Bootstrap (inclui Popper.js). -->
+    <!-- JS Personalizado -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script> <!-- Link para o script JS personalizado do projeto. -->
+
+    <!-- Modal para aumentar estoque -->
+    <div class="modal fade" id="aumentarEstoqueModal" tabindex="-1" aria-labelledby="aumentarEstoqueModalLabel" aria-hidden="true"> <!-- Definição do modal de aumentar estoque. -->
+      <div class="modal-dialog"> <!-- Diálogo do modal. -->
+        <div class="modal-content"> <!-- Conteúdo do modal. -->
+          <div class="modal-header"> <!-- Cabeçalho do modal. -->
+            <h5 class="modal-title" id="aumentarEstoqueModalLabel">Aumentar Estoque</h5> <!-- Título do modal. -->
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> <!-- Botão para fechar o modal. -->
+          </div>
+          <div class="modal-body"> <!-- Corpo do modal. -->
+            <form id="aumentarEstoqueForm" method="POST" action="{{ url_for('aumentar_estoque') }}"> <!-- Formulário para aumentar estoque, com método POST e ação para a rota 'aumentar_estoque'. -->
+              <input type="hidden" name="peca_id" id="modalPecaId"> <!-- Campo oculto para armazenar o ID da peça. -->
+              <div class="mb-3"> <!-- Grupo de formulário com margem inferior. -->
+                <label for="quantidade" class="form-label">Quantidade a adicionar</label> <!-- Rótulo para o campo de quantidade. -->
+                <input type="number" class="form-control" id="quantidade" name="quantidade" min="1" required> <!-- Campo de input numérico para a quantidade, mínimo 1, obrigatório. -->
+              </div>
+          </div>
+          <div class="modal-footer"> <!-- Rodapé do modal. -->
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button> <!-- Botão para cancelar e fechar o modal. -->
+            <button type="submit" class="btn btn-primary">Salvar</button> <!-- Botão para submeter o formulário. -->
+          </div>
+          </form> <!-- Fechamento do formulário. -->
+        </div>
+      </div>
+    </div>
+
+    <script>
+    // Script específico para o modal de aumentar estoque, duplicado do script.js mas com data-id em vez de data-bs-id.
+    // O script.js já lida com isso de forma mais genérica. Este bloco pode ser redundante ou para compatibilidade.
+    document.getElementById('aumentarEstoqueModal').addEventListener('show.bs.modal', function (event) {
+      var button = event.relatedTarget // Obtém o botão que acionou o modal.
+      var pecaId = button.getAttribute('data-id') // Obtém o ID da peça do atributo 'data-id'.
+      document.getElementById('modalPecaId').value = pecaId // Preenche o campo oculto com o ID da peça.
+    })
+    </script>
+</body>
+</html>

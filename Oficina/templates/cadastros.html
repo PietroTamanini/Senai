@@ -1,0 +1,201 @@
+{% extends "base.html" %} <!-- Indica que este template estende o template base.html, herdando sua estrutura. -->
+
+{% block title %}Cadastros{% endblock %} <!-- Define o título da página para "Cadastros", que será inserido no bloco 'title' do base.html. -->
+
+{% block content %} <!-- Inicia o bloco de conteúdo principal da página. -->
+<h1 class="mb-4 text-primary"><i class="fas fa-plus-circle me-2"></i>Gerenciar Cadastros</h1> <!-- Título principal da página de gerenciamento de cadastros. -->
+
+<div class="accordion" id="cadastroAccordion"> <!-- Container do accordion Bootstrap para organizar os formulários de cadastro. -->
+    {% if user_level in ["admin", "cadastrador_pecas"] %} <!-- Condição para exibir o formulário de cadastro de peça, baseado no nível do usuário. -->
+    <div class="card mb-3 shadow-sm"> <!-- Card Bootstrap para o formulário de peça, com margem inferior e sombra. -->
+        <div class="card-header" id="headingPeca"> <!-- Cabeçalho do card, com ID para o accordion. -->
+            <h2 class="mb-0"> <!-- Título do cabeçalho. -->
+                <button class="btn btn-link btn-block text-start text-decoration-none w-100 py-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePeca" aria-expanded="true" aria-controls="collapsePeca"> <!-- Botão que controla o colapso do painel de peça. -->
+                    <i class="fas fa-tools me-2"></i>Cadastrar Peça <!-- Ícone e texto do botão. -->
+                </button>
+            </h2>
+        </div>
+        <div id="collapsePeca" class="collapse show" aria-labelledby="headingPeca" data-bs-parent="#cadastroAccordion"> <!-- Painel colapsável para o formulário de peça, inicialmente expandido ('show'). -->
+            <div class="card-body"> <!-- Corpo do card, contendo o formulário. -->
+                <form method="POST" action="{{ url_for('cadastros') }}"> <!-- Formulário de cadastro de peça, submete via POST para a rota 'cadastros'. -->
+                    <input type="hidden" name="form_type" value="peca"> <!-- Campo oculto para identificar o tipo de formulário. -->
+                    <div class="row g-3"> <!-- Linha Bootstrap para organizar os campos em grade. -->
+                        <div class="col-md-3"> <!-- Coluna para o campo de código da peça. -->
+                            <label for="id_peca" class="form-label">Código da Peça</label> <!-- Rótulo do campo. -->
+                            <input type="text" class="form-control" id="id_peca" name="id_peca" required> <!-- Campo de input para o código da peça, obrigatório. -->
+                        </div>
+                        <div class="col-md-5"> <!-- Coluna para o campo de nome da peça. -->
+                            <label for="nome_peca" class="form-label">Nome da Peça</label>
+                            <input type="text" class="form-control" id="nome_peca" name="nome_peca" required>
+                        </div>
+                        <div class="col-md-2"> <!-- Coluna para o campo de preço da peça. -->
+                            <label for="preco_peca" class="form-label">Preço (R$)</label>
+                            <input type="number" class="form-control" id="preco_peca" name="preco_peca" step="0.01" min="0" required> <!-- Campo numérico para preço, com casas decimais e mínimo 0. -->
+                        </div>
+                        <div class="col-md-2"> <!-- Coluna para o campo de pontuação da peça. -->
+                            <label for="pontuacao_peca" class="form-label">Pontuação</label>
+                            <input type="number" class="form-control" id="pontuacao_peca" name="pontuacao_peca" min="0" required> <!-- Campo numérico para pontuação, mínimo 0. -->
+                        </div>
+                        <div class="col-12"> <!-- Coluna para o botão de submissão. -->
+                            <button type="submit" class="btn btn-primary mt-3"><i class="fas fa-save me-2"></i>Cadastrar Peça</button> <!-- Botão para cadastrar a peça. -->
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    
+    {% if user_level in ["admin", "rh"] %} <!-- Condição para exibir os formulários de cadastro de serviço, cliente e veículo. -->
+    <div class="card mb-3 shadow-sm">
+        <div class="card-header" id="headingServico">
+            <h2 class="mb-0">
+                <button class="btn btn-link btn-block text-start text-decoration-none w-100 collapsed py-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseServico" aria-expanded="false" aria-controls="collapseServico"> <!-- Botão para colapsar/expandir o formulário de serviço. -->
+                    <i class="fas fa-cogs me-2"></i>Cadastrar Serviço
+                </button>
+            </h2>
+        </div>
+        <div id="collapseServico" class="collapse" aria-labelledby="headingServico" data-bs-parent="#cadastroAccordion"> <!-- Painel colapsável para o formulário de serviço. -->
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('cadastros') }}"> <!-- Formulário de cadastro de serviço. -->
+                    <input type="hidden" name="form_type" value="servico">
+                    <div class="row g-3">
+                        <div class="col-md-3">
+                            <label for="id_servico" class="form-label">Código do Serviço</label>
+                            <input type="text" class="form-control" id="id_servico" name="id_servico" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="nome_servico" class="form-label">Nome do Serviço</label>
+                            <input type="text" class="form-control" id="nome_servico" name="nome_servico" required>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="preco_servico" class="form-label">Preço (R$)</label>
+                            <input type="number" class="form-control" id="preco_servico" name="preco_servico" step="0.01" min="0" required>
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary mt-3"><i class="fas fa-save me-2"></i>Cadastrar Serviço</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card mb-3 shadow-sm">
+        <div class="card-header" id="headingCliente">
+            <h2 class="mb-0">
+                <button class="btn btn-link btn-block text-start text-decoration-none w-100 collapsed py-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCliente" aria-expanded="false" aria-controls="collapseCliente"> <!-- Botão para colapsar/expandir o formulário de cliente. -->
+                    <i class="fas fa-user-plus me-2"></i>Cadastrar Cliente
+                </button>
+            </h2>
+        </div>
+        <div id="collapseCliente" class="collapse" aria-labelledby="headingCliente" data-bs-parent="#cadastroAccordion"> <!-- Painel colapsável para o formulário de cliente. -->
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('cadastros') }}"> <!-- Formulário de cadastro de cliente. -->
+                    <input type="hidden" name="form_type" value="cliente">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label for="cpf_cliente" class="form-label">CPF</label>
+                            <input type="text" class="form-control" id="cpf_cliente" name="cpf_cliente" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="nome_cliente" class="form-label">Nome</label>
+                            <input type="text" class="form-control" id="nome_cliente" name="nome_cliente" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="email_cliente" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email_cliente" name="email_cliente" required>
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary mt-3"><i class="fas fa-save me-2"></i>Cadastrar Cliente</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-3 shadow-sm">
+        <div class="card-header" id="headingVeiculo">
+            <h2 class="mb-0">
+                <button class="btn btn-link btn-block text-start text-decoration-none w-100 collapsed py-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseVeiculo" aria-expanded="false" aria-controls="collapseVeiculo"> <!-- Botão para colapsar/expandir o formulário de veículo. -->
+                    <i class="fas fa-car me-2"></i>Cadastrar Veículo
+                </button>
+            </h2>
+        </div>
+        <div id="collapseVeiculo" class="collapse" aria-labelledby="headingVeiculo" data-bs-parent="#cadastroAccordion"> <!-- Painel colapsável para o formulário de veículo. -->
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('cadastros') }}"> <!-- Formulário de cadastro de veículo. -->
+                    <input type="hidden" name="form_type" value="veiculo">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label for="placa_veiculo" class="form-label">Placa</label>
+                            <input type="text" class="form-control" id="placa_veiculo" name="placa_veiculo" required>
+                        </div>
+                        <div class="col-md-5">
+                            <label for="modelo_veiculo" class="form-label">Modelo</label>
+                            <input type="text" class="form-control" id="modelo_veiculo" name="modelo_veiculo" required>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="ano_veiculo" class="form-label">Ano</label>
+                            <input type="number" class="form-control" id="ano_veiculo" name="ano_veiculo" min="1900" max="{{ now().year + 1 }}" required> <!-- Campo numérico para ano, com validação de mínimo e máximo (ano atual + 1). -->
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary mt-3"><i class="fas fa-save me-2"></i>Cadastrar Veículo</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+{% if clientes %} <!-- Condição para exibir a tabela de clientes cadastrados. -->
+<h2 class="mt-5 mb-3 text-primary">Clientes Cadastrados</h2> <!-- Título da seção de clientes. -->
+<div class="table-responsive"> <!-- Container responsivo para a tabela. -->
+    <table class="table table-striped table-hover align-middle"> <!-- Tabela Bootstrap com estilos de listra, hover e alinhamento vertical. -->
+        <thead class="table-primary"> <!-- Cabeçalho da tabela com fundo primário. -->
+            <tr> <!-- Linha do cabeçalho. -->
+                <th>CPF</th> <!-- Coluna para CPF. -->
+                <th>Nome</th> <!-- Coluna para Nome. -->
+                <th>Email</th> <!-- Coluna para Email. -->
+            </tr>
+        </thead>
+        <tbody> <!-- Corpo da tabela. -->
+            {% for cliente in clientes %} <!-- Loop para iterar sobre a lista de clientes. -->
+            <tr> <!-- Linha para cada cliente. -->
+                <td>{{ cliente.cpf }}</td> <!-- Exibe o CPF do cliente. -->
+                <td>{{ cliente.nome }}</td> <!-- Exibe o nome do cliente. -->
+                <td>{{ cliente.email }}</td> <!-- Exibe o email do cliente. -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+{% if veiculos %} <!-- Condição para exibir a tabela de veículos cadastrados. -->
+<h2 class="mt-5 mb-3 text-primary">Veículos Cadastrados</h2> <!-- Título da seção de veículos. -->
+<div class="table-responsive">
+    <table class="table table-striped table-hover align-middle">
+        <thead class="table-primary">
+            <tr>
+                <th>Placa</th> <!-- Coluna para Placa. -->
+                <th>Modelo</th> <!-- Coluna para Modelo. -->
+                <th>Ano</th> <!-- Coluna para Ano. -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for veiculo in veiculos %} <!-- Loop para iterar sobre a lista de veículos. -->
+            <tr>
+                <td>{{ veiculo.placa }}</td> <!-- Exibe a placa do veículo. -->
+                <td>{{ veiculo.modelo }}</td> <!-- Exibe o modelo do veículo. -->
+                <td>{{ veiculo.ano }}</td> <!-- Exibe o ano do veículo. -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+{% endblock %} <!-- Finaliza o bloco de conteúdo principal. -->

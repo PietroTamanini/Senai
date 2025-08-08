@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+
+{% block title %}Vendas{% endblock %}
+
+{% block content %}
+<h1 class="mb-4 text-success"><i class="fas fa-shopping-cart me-2"></i>Gerenciar Vendas</h1>
+
+<div class="card my-4 shadow-sm">
+    <div class="card-header bg-success text-white">
+        <h5 class="mb-0">Adicionar Item ao Pedido</h5>
+    </div>
+    <div class="card-body">
+        <form id="adicionarItemForm" method="POST" action="{{ url_for('vendas') }}">
+            <input type="hidden" name="action" value="add_item">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="item_type" class="form-label">Tipo de Item</label>
+                    <select class="form-select" id="item_type" name="item_type">
+                        <option value="peca" selected>Peça</option>
+                        <option value="servico">Serviço</option>
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="item_id" class="form-label">ID do Item</label>
+                    <input type="text" class="form-control" id="item_id" name="item_id" required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="quantidade_item" class="form-label">Quantidade (apenas para Peças)</label>
+                <input type="number" class="form-control" id="quantidade_item" name="quantidade_item" value="1" min="1">
+            </div>
+            <button type="submit" class="btn btn-success"><i class="fas fa-plus me-2"></i>Adicionar ao Pedido</button>
+        </form>
+    </div>
+</div>
+
+<h4 class="mt-4 text-info">Pedido Atual</h4>
+{% if pedido_atual %}
+<div class="table-responsive">
+    <table class="table table-striped table-sm">
+        <thead class="table-info">
+            <tr>
+                <th>Item</th>
+                <th>Preço Unitário</th>
+                <th>Quantidade</th>
+                <th>Subtotal</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in pedido_atual %}
+            <tr>
+                <td>{{ item.item.nome }}</td>
+                <td>{{ formatar_moeda(item.item.preco) }}</td>
+                <td>{{ item.quantidade }}</td>
+                <td>{{ formatar_moeda(item.item.preco * item.quantidade) }}</td>
+                <td>
+                    <form action="{{ url_for('vendas') }}" method="post" style="display:inline;">
+                        <input type="hidden" name="action" value="remover_item">
+                        <input type="hidden" name="item_index" value="{{ loop.index0 }}">
+                        <button type="submit" class="btn btn-danger btn-sm">Remover</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="card my-4 p-3 shadow-sm">
+    <h5>Total do Pedido: <span class="text-success">{{ formatar_moeda(total_pedido) }}</span></h5>
+    
+    <div class="mt-3">
+        <form action="{{ url_for('finalizar_venda') }}" method="post" id="finalizarVendaForm">
+            <div class="mb-3">
+    <label class="form-label">Tipo de Cliente:</label>
+    <div class="d-flex mb-3">
+        <div class="form-check me-3">
+            <input class="form-check-input" type="radio" name="tipo_cliente" id="clienteNaoRegistrado" value="nao_registrado" checked>
+            <label class="form-check-label" for="clienteNaoRegistrado">Cliente Não Registrado</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="tipo_cliente" id="clienteRegistrado" value="registrado">
+            <label class="form-check-label" for="clienteRegistrado">Cliente Registrado</label>
+        </div>
+    </div>
+</div>
+
+<div class="mb-3" id="clienteRegistradoContainer" style="display: none;">
+    <label for="cliente_cpf" class="form-label">Selecione o Cliente</label>
+    <select class="form-select" id="cliente_cpf" name="cliente_cpf">
+        <option value="">Selecione um cliente</option>
+        {% for cliente in clientes %}
+        <option value="{{ cliente.cpf }}">{{ cliente.nome }} ({{ cliente.cpf }})</option>
+        {% else %}
+        <option value="" disabled>Nenhum cliente cadastrado</option>
+        {% endfor %}
+    </select>
+</div>
+            
+            <label class="form-label">Forma de Pagamento:</label>
+            <div class="d-flex mb-3">
+                <div class="form-check me-3">
+                    <input class="form-check-input" type="radio" name="pagamento" id="pagamentoPix" value="1" checked>
+                    <label class="form-check-label" for="pagamentoPix">PIX (5% de desconto)</label>
+                </div>
+                <div class="form-check me-3">
+                    <input class="form-check-input" type="radio" name="pagamento" id="pagamentoCredito" value="2">
+                    <label class="form-check-label" for="pagamentoCredito">Cartão de Crédito</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="pagamento" id="pagamentoDebito" value="3">
+                    <label class="form-check-label" for="pagamentoDebito">Cartão de Débito</label>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-success me-2">Finalizar Venda</button>
+            
+            <button type="button" class="btn btn-secondary" onclick="document.getElementById('cancelarPedidoForm').submit();">Cancelar Pedido</button>
+        </form>
+        <form action="{{ url_for('vendas') }}" method="post" id="cancelarPedidoForm" style="display: none;">
+            <input type="hidden" name="action" value="cancelar_pedido">
+        </form>
+    </div>
+</div>
+{% else %}
+<div class="alert alert-info text-center" role="alert">
+    <i class="fas fa-info-circle me-2"></i>Nenhum item no pedido.
+</div>
+{% endif %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const clienteRegistradoRadio = document.getElementById('clienteRegistrado');
+    const clienteNaoRegistradoRadio = document.getElementById('clienteNaoRegistrado');
+    const clienteRegistradoContainer = document.getElementById('clienteRegistradoContainer');
+    const clienteCpfSelect = document.getElementById('cliente_cpf');
+
+    function toggleClienteFields() {
+        if (clienteRegistradoRadio.checked) {
+            clienteRegistradoContainer.style.display = 'block';
+            clienteCpfSelect.required = true;
+        } else {
+            clienteRegistradoContainer.style.display = 'none';
+            clienteCpfSelect.required = false;
+        }
+    }
+
+    // Adiciona os event listeners
+    clienteRegistradoRadio.addEventListener('change', toggleClienteFields);
+    clienteNaoRegistradoRadio.addEventListener('change', toggleClienteFields);
+    
+    // Inicializa o estado
+    toggleClienteFields();
+
+    // Validação do formulário
+    document.getElementById('finalizarVendaForm').addEventListener('submit', function(e) {
+        if (clienteRegistradoRadio.checked && !clienteCpfSelect.value) {
+            e.preventDefault();
+            alert('Por favor, selecione um cliente registrado');
+            clienteCpfSelect.focus();
+        }
+    });
+});
+</script>
+{% endblock %}

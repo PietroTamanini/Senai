@@ -1,0 +1,177 @@
+{
+    "usuarios": [
+        {
+            "usuario": "ADMIN",
+            "senha": "999",
+            "nivel": "admin",
+            "pontos": 146
+        },
+        {
+            "usuario": "ATENDENTE",
+            "senha": "111",
+            "nivel": "atendente",
+            "pontos": 0
+        },
+        {
+            "usuario": "ESTOQUISTA",
+            "senha": "222",
+            "nivel": "estoquista",
+            "pontos": 0
+        },
+        {
+            "usuario": "RECURSOS HUMANOS",
+            "senha": "333",
+            "nivel": "rh",
+            "pontos": 0
+        },
+        {
+            "usuario": "CADASTRADOR",
+            "senha": "444",
+            "nivel": "cadastrador_pecas",
+            "pontos": 0
+        }
+    ],
+    "pecas": [
+        {
+            "id": "P001",
+            "nome": "Óleo 20W-40 Semi-sintético",
+            "preco": 120.0,
+            "quantidade": 15,
+            "pontuacao": 100
+        },
+        {
+            "id": "P002",
+            "nome": "Filtro de Óleo",
+            "preco": 45.0,
+            "quantidade": 8,
+            "pontuacao": 50
+        },
+        {
+            "id": "P003",
+            "nome": "Pastilha de Freio Dianteira",
+            "preco": 180.0,
+            "quantidade": 5,
+            "pontuacao": 150
+        },
+        {
+            "id": "P004",
+            "nome": "Bateria 60Ah",
+            "preco": 350.0,
+            "quantidade": 3,
+            "pontuacao": 300
+        }
+    ],
+    "servicos": [
+        {
+            "id": "S001",
+            "nome": "Troca de Óleo Completa",
+            "preco": 80.0
+        },
+        {
+            "id": "S002",
+            "nome": "Alinhamento e Balanceamento",
+            "preco": 120.0
+        },
+        {
+            "id": "S003",
+            "nome": "Revisão Preventiva",
+            "preco": 200.0
+        }
+    ],
+    "clientes": [
+        {
+            "cpf": "123.456.789-01",
+            "nome": "João Silva",
+            "email": "joao.silva@email.com"
+        },
+        {
+            "cpf": "987.654.321-09",
+            "nome": "Maria Oliveira",
+            "email": "maria.oliveira@email.com"
+        },
+        {
+            "cpf": "456.123.789-05",
+            "nome": "Carlos Souza",
+            "email": "carlos.souza@email.com"
+        }
+    ],
+    "veiculos": [
+        {
+            "placa": "ABC1D23",
+            "modelo": "Fiat Strada",
+            "ano": 2020
+        },
+        {
+            "placa": "XYZ9K87",
+            "modelo": "Volkswagen Gol",
+            "ano": 2018
+        }
+    ],
+    "historico_vendas": [
+        {
+            "id": 1,
+            "data_hora": "15/05/2023 10:30:00",
+            "itens": [
+                {
+                    "tipo": "peca",
+                    "item": {
+                        "id": "P001",
+                        "nome": "Óleo 20W-40 Semi-sintético",
+                        "preco": 120.0
+                    },
+                    "quantidade": 1
+                },
+                {
+                    "tipo": "servico",
+                    "item": {
+                        "id": "S001",
+                        "nome": "Troca de Óleo Completa",
+                        "preco": 80.0
+                    },
+                    "quantidade": 1
+                }
+            ],
+            "valor_total": 190.0,
+            "pagamento": 1,
+            "pontos_ganhos": 100,
+            "cliente": {
+                "cpf": "123.456.789-01",
+                "nome": "João Silva",
+                "email": "joao.silva@email.com"
+            },
+            "veiculo": {
+                "placa": "ABC1D23",
+                "modelo": "Fiat Strada",
+                "ano": 2020
+            }
+        },
+        {
+            "id": 2,
+            "data_hora": "20/05/2023 14:15:00",
+            "itens": [
+                {
+                    "tipo": "peca",
+                    "item": {
+                        "id": "P003",
+                        "nome": "Pastilha de Freio Dianteira",
+                        "preco": 180.0
+                    },
+                    "quantidade": 2
+                }
+            ],
+            "valor_total": 360.0,
+            "pagamento": 2,
+            "pontos_ganhos": 300,
+            "cliente": {
+                "cpf": "987.654.321-09",
+                "nome": "Maria Oliveira",
+                "email": "maria.oliveira@email.com"
+            },
+            "veiculo": {
+                "placa": "XYZ9K87",
+                "modelo": "Volkswagen Gol",
+                "ano": 2018
+            }
+        }
+    ]
+}

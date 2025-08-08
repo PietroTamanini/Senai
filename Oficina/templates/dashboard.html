@@ -1,0 +1,68 @@
+{% extends "base.html" %} <!-- Indica que este template estende o template base.html, herdando sua estrutura. -->
+
+{% block title %}Dashboard{% endblock %} <!-- Define o título da página para "Dashboard", que será inserido no bloco 'title' do base.html. -->
+
+{% block content %} <!-- Inicia o bloco de conteúdo principal da página. -->
+<div class="jumbotron bg-light p-5 rounded-lg m-3 text-center"> <!-- Componente Jumbotron (agora um div com estilos similares) para uma saudação. -->
+    <h1 class="display-4">Bem-vindo(a) ao Sistema de Gestão!</h1> <!-- Título de boas-vindas. -->
+    <p class="lead">Olá, <strong>{{ usuario_logado.usuario }}</strong>! Você está logado como <strong>{{ usuario_logado.nivel.capitalize() }}</strong>.</p> <!-- Mensagem de boas-vindas personalizada com nome e nível do usuário. -->
+    <hr class="my-4"> <!-- Linha horizontal para separar o conteúdo. -->
+    <p>Utilize o menu de navegação acima para acessar as funcionalidades do sistema.</p> <!-- Instrução para o usuário. -->
+    {% if usuario_logado.nivel != 'cliente' %} <!-- Condição para exibir o botão "Ir para Vendas" se o usuário não for um cliente. -->
+        <a class="btn btn-primary btn-lg" href="{{ url_for('vendas') }}" role="button"> <!-- Botão grande para ir para a página de vendas. -->
+            <i class="fas fa-shopping-cart me-2"></i>Ir para Vendas <!-- Ícone e texto do botão. -->
+        </a>
+    {% endif %}
+</div>
+
+<div class="row mt-4 text-center"> <!-- Linha Bootstrap para organizar os cards de funcionalidades, com margem superior e texto centralizado. -->
+    {% if usuario_logado.nivel == 'cliente' %} <!-- Condição para exibir cards específicos para o nível de usuário 'cliente'. -->
+        <div class="col-md-6 mb-4"> <!-- Coluna para o card de Vendas (para clientes). -->
+            <div class="card"> <!-- Card Bootstrap. -->
+                <div class="card-body"> <!-- Corpo do card. -->
+                    <h5 class="card-title"><i class="fas fa-shopping-cart text-success me-2"></i>Vendas</h5> <!-- Título do card com ícone. -->
+                    <p class="card-text">Inicie um novo pedido e adicione peças ou serviços.</p> <!-- Descrição do card. -->
+                    <a href="{{ url_for('vendas') }}" class="btn btn-outline-success">Acessar Vendas</a> <!-- Botão para acessar Vendas. -->
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4"> <!-- Coluna para o card de Troca de Pontos (para clientes). -->
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-gift text-info me-2"></i>Troca de Pontos</h5>
+                    <p class="card-text">Troque seus pontos acumulados por peças do nosso estoque.</p>
+                    <a href="{{ url_for('troca_pontos') }}" class="btn btn-outline-info">Acessar Troca de Pontos</a>
+                </div>
+            </div>
+        </div>
+    {% else %} <!-- Se o usuário não for um cliente (admin, atendente, estoquista, rh). -->
+    <div class="col-md-4"> <!-- Coluna para o card de Cadastros. -->
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-plus-circle text-primary me-2"></i>Cadastros</h5>
+                <p class="card-text">Gerencie peças, serviços, clientes e veículos.</p>
+                <a href="{{ url_for('cadastros') }}" class="btn btn-outline-primary">Acessar Cadastros</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4"> <!-- Coluna para o card de Estoque. -->
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-warehouse text-warning me-2"></i>Estoque</h5>
+                <p class="card-text">Visualize e gerencie o estoque de peças.</p>
+                <a href="{{ url_for('estoque') }}" class="btn btn-outline-warning">Ver Estoque</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4"> <!-- Coluna para o card de Relatórios. -->
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-chart-bar text-info me-2"></i>Relatórios</h5>
+                <p class="card-text">Acesse o histórico de vendas e dados financeiros.</p>
+                <a href="{{ url_for('relatorios') }}" class="btn btn-outline-info">Ver Relatórios</a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %} <!-- Finaliza o bloco de conteúdo principal. -->

@@ -1,0 +1,30 @@
+{% extends "base.html" %} <!-- Indica que este template estende o template base.html, herdando sua estrutura. -->
+
+{% block title %}Login{% endblock %} <!-- Define o título da página para "Login", que será inserido no bloco 'title' do base.html. -->
+
+{% block content %} <!-- Inicia o bloco de conteúdo principal da página. -->
+<div class="row justify-content-center mt-5"> <!-- Linha Bootstrap para centralizar o formulário de login horizontalmente, com margem superior. -->
+    <div class="col-md-5 col-lg-4"> <!-- Coluna que define a largura do formulário em diferentes tamanhos de tela. -->
+        <div class="card shadow-lg border-0 rounded-lg mt-5"> <!-- Card Bootstrap para o formulário de login, com sombra, sem borda e cantos arredondados. -->
+            <div class="card-header bg-primary text-white text-center py-4"> <!-- Cabeçalho do card, com fundo primário, texto branco e centralizado. -->
+                <h3 class="fw-light my-3"><i class="fas fa-user-circle me-2"></i>Login no Sistema</h3> <!-- Título do cabeçalho do card com ícone. -->
+            </div>
+            <div class="card-body p-4"> <!-- Corpo do card, com padding. -->
+                <form method="POST" action="{{ url_for('login') }}"> <!-- Formulário de login, submete via POST para a rota 'login'. -->
+                    <div class="form-floating mb-3"> <!-- Grupo de formulário flutuante para o campo de usuário. -->
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Usuário" required autofocus> <!-- Campo de input para o nome de usuário, obrigatório e com foco automático. -->
+                        <label for="username">Usuário</label> <!-- Rótulo flutuante para o campo de usuário. -->
+                    </div>
+                    <div class="form-floating mb-3"> <!-- Grupo de formulário flutuante para o campo de senha. -->
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Senha" required> <!-- Campo de input para a senha, obrigatório. -->
+                        <label for="password">Senha</label> <!-- Rótulo flutuante para o campo de senha. -->
+                    </div>
+                    <div class="d-grid"> <!-- Div para criar um botão de largura total. -->
+                        <button type="submit" class="btn btn-primary btn-lg">Entrar</button> <!-- Botão de submissão para entrar no sistema. -->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} <!-- Finaliza o bloco de conteúdo principal. -->
