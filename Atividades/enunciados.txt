@@ -1,0 +1,37 @@
+1. Par ou ímpar
+Escreva um programa que leia um número inteiro e informe se ele é par ou ímpar.
+
+2. Contador de letras
+Peça ao usuário uma frase e informe quantas vezes aparece a letra “a” (maiúscula ou minúscula).
+
+3. Conversão de temperatura
+Crie um programa que converta uma temperatura em Celsius para Fahrenheit. Fórmula: F = C * 9/5 + 32.
+
+4. Média de notas
+Leia 3 notas de um aluno e calcule a média. Informe se o aluno foi aprovado (>=7), em recuperação (>=5 e <7) ou reprovado (<5).
+
+5. Lista de números pares
+Peça ao usuário um número n e crie uma lista com todos os números pares de 1 até n.
+
+6. Contagem regressiva
+Faça um programa que peça um número n e faça uma contagem regressiva até 0, mostrando cada número.
+
+7. Verificador de senha
+Salve a senha 1234 numa variável e peça para o usuário digitar, se ele acertar mostre "Acesso liberado", senão "Acesso bloqueado".
+
+8. Separador de vogais e consoantes
+Peça uma palavra e crie duas listas: uma com as vogais e outra com as consoantes da palavra.
+
+9. Contador de palavras
+Peça ao usuário uma frase e conte quantas palavras ela contém (separadas por espaço).
+
+10. Agenda simples
+Crie um programa que permita cadastrar nomes e telefones em um dicionário. Depois, permita listar todas as pessoas e seus telefones.
+
+11. Calculadora de IMC
+Peça ao usuário o peso e a altura e calcule o IMC (IMC = peso / altura²). Informe se está abaixo do peso, normal, sobrepeso ou obesidade, usando condições.
+
+12. Mini-jogo de adivinhação
+Crie um programa que escolha um número aleatório de 1 a 20. O usuário deve tentar adivinhar. Dê dicas se o palpite é maior ou menor que o número secreto, até acertar.
+
+13. Refaça o exercício 7, mas agora o usuário tem um máximo de 3 tentativas.
